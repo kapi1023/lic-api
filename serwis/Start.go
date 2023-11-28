@@ -1,21 +1,26 @@
 package serwis
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+
+	"github.com/kapi1023/licencjat/api/route"
+)
 
 func Start(port string) {
-	routes := []route.Route{
+	r := route.Start()
+	log.Fatal(r.ListenAndServe([]route.Route{
 		{
-			Method: "GET",
+			MetodaHttp: http.MethodPost,
+			Path:       "/essa",
 			Func: func(w http.ResponseWriter, r *http.Request) {
 				w.Write([]byte("Hello, GET!"))
 			},
 		},
 		{
-			Method: http.MethodPost,
-			Func: func(w http.ResponseWriter, r *http.Request) {
-				w.Write([]byte("Hello, POST!"))
-			},
+			MetodaHttp: http.MethodPost,
+			Path:       "/pobierz-test",
+			Func:       pobierzTest(),
 		},
-	}
-	route.StartServer(port, routes)
+	}, port))
 }
