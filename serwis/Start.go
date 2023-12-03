@@ -8,15 +8,9 @@ import (
 )
 
 func Start(port string) {
+	testowanieFunkcji()
 	r := route.Start()
 	log.Fatal(r.ListenAndServe([]route.Route{
-		{
-			MetodaHttp: http.MethodPost,
-			Path:       "/essa",
-			Func: func(w http.ResponseWriter, r *http.Request) {
-				w.Write([]byte("Hello, GET!"))
-			},
-		},
 		{
 			MetodaHttp: http.MethodPost,
 			Path:       "/pobierz-test",
